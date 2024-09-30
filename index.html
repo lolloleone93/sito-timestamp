@@ -85,11 +85,15 @@
             list.innerHTML = '';  // Svuota solo la visualizzazione della lista
         });
 
-        // Funzione per generare il CSV dalla lista
+        // Funzione per generare il CSV dalla lista visibile
         function generateCSV() {
             let csvContent = "Numero,Timestamp\n";
-            numberList.forEach(function(row) {
-                csvContent += `${row.number},${row.timestamp}\n`;
+            const listItems = document.querySelectorAll('#list li'); // Seleziona solo gli elementi visibili nella lista
+
+            listItems.forEach(function(item) {
+                const [number, timestamp] = item.textContent.split(' (Timestamp: ');
+                const formattedTimestamp = timestamp.replace(')', ''); // Rimuove la parentesi finale
+                csvContent += `${number},${formattedTimestamp}\n`;
             });
             return csvContent;
         }
