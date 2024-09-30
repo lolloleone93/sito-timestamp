@@ -2,11 +2,7 @@ const CACHE_NAME = 'timestamp-app-cache-v1';
 const urlsToCache = [
   '/',
   '/index.html',
-  '/manifest.json',
-  '/style.css',  // Se hai un file CSS
-  '/script.js',  // Il tuo file JavaScript (qui sarebbe il codice direttamente incluso nell'HTML)
-  '/icon-192x192.png',
-  '/icon-512x512.png'
+  '/manifest.json'
 ];
 
 self.addEventListener('install', event => {
