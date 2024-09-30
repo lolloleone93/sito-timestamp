@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App con Timestamp</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#007bff">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -92,6 +94,17 @@
 
         // Gestione del click sul pulsante "Scarica CSV"
         document.getElementById('download-button').addEventListener('click', downloadCSV);
+
+        // Registra il service worker per supportare l'app offline
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+                    console.log('ServiceWorker registrato con successo:', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registrazione fallita:', err);
+                });
+            });
+        }
     </script>
 
 </body>
