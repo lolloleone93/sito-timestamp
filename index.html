@@ -40,6 +40,7 @@
     <input type="number" id="number-input" placeholder="Inserisci un numero">
     <button id="add-button">Aggiungi alla Lista</button>
     <button id="download-button">Scarica CSV</button>
+    <button id="clear-list">Cancella lista</button>
 
     <div id="number-list">
         <h3>Lista Chip con Tempo:</h3>
@@ -79,6 +80,17 @@
                 alert('Per favore, inserisci un numero!');
             }
         });
+
+        document.getElementById("clear-list").addEventListener("click", function() {
+    // Seleziona il container dove si trovano gli elementi della lista
+    const list = document.getElementById("number-list");
+    
+    // Svuota il contenuto della lista
+    list.innerHTML = '';
+    
+    // Se stai usando un array per tenere traccia dei dati, puoi anche svuotare l'array
+    numbersArray = [];  // Assicurati che questa variabile esista già nel tuo script
+});
 
         // Funzione per generare il CSV dalla lista
         function generateCSV() {
