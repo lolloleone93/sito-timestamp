@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App con Timestamp</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #current-time {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        #number-list {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="current-time"></div>
+
+    <input type="text" id="number-input" placeholder="Inserisci un numero">
+    <button id="add-button">Aggiungi alla Lista</button>
+
+    <div id="number-list">
+        <h3>Lista Numeri con Timestamp:</h3>
+        <ul id="list"></ul>
+    </div>
+
+    <script>
+        // Funzione per aggiornare l'ora corrente
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            document.getElementById('current-time').textContent = `Ora corrente: ${timeString}`;
+        }
+
+        // Aggiorna l'ora ogni secondo
+        setInterval(updateTime, 1000);
+        updateTime(); // Aggiorna subito
+
+        // Gestione del click sul pulsante
+        document.getElementById('add-button').addEventListener('click', function() {
+            const numberInput = document.getElementById('number-input').value;
+            if (numberInput) {
+                const now = new Date();
+                const timestamp = now.toLocaleString();
+                const listItem = document.createElement('li');
+                listItem.textContent = `${numberInput} (Timestamp: ${timestamp})`;
+                document.getElementById('list').appendChild(listItem);
+                document.getElementById('number-input').value = ''; // Resetta la text box
+            } else {
+                alert('Per favore, inserisci un numero!');
+            }
+        });
+    </script>
+
+</body>
+</html>
