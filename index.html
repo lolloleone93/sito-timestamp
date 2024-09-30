@@ -16,14 +16,18 @@
         #number-list {
             margin-top: 20px;
         }
+        button {
+            margin: 5px;
+        }
     </style>
 </head>
 <body>
 
     <div id="current-time"></div>
 
-    <input type="text" id="number-input" placeholder="Inserisci un numero">
+    <input type="number" id="number-input" placeholder="Inserisci un numero">
     <button id="add-button">Aggiungi alla Lista</button>
+    <button id="download-button">Scarica CSV</button>
 
     <div id="number-list">
         <h3>Lista Numeri con Timestamp:</h3>
@@ -31,6 +35,8 @@
     </div>
 
     <script>
+        const numberList = [];
+
         // Funzione per aggiornare l'ora corrente
         function updateTime() {
             const now = new Date();
@@ -42,7 +48,7 @@
         setInterval(updateTime, 1000);
         updateTime(); // Aggiorna subito
 
-        // Gestione del click sul pulsante
+        // Gestione del click sul pulsante "Aggiungi alla Lista"
         document.getElementById('add-button').addEventListener('click', function() {
             const numberInput = document.getElementById('number-input').value;
             if (numberInput) {
@@ -51,11 +57,41 @@
                 const listItem = document.createElement('li');
                 listItem.textContent = `${numberInput} (Timestamp: ${timestamp})`;
                 document.getElementById('list').appendChild(listItem);
-                document.getElementById('number-input').value = ''; // Resetta la text box
+
+                // Aggiungi l'elemento alla lista interna
+                numberList.push({ number: numberInput, timestamp: timestamp });
+
+                // Resetta la text box
+                document.getElementById('number-input').value = '';
             } else {
                 alert('Per favore, inserisci un numero!');
             }
         });
+
+        // Funzione per generare il CSV dalla lista
+        function generateCSV() {
+            let csvContent = "Numero,Timestamp\n";
+            numberList.forEach(function(row) {
+                csvContent += `${row.number},${row.timestamp}\n`;
+            });
+            return csvContent;
+        }
+
+        // Funzione per scaricare il CSV
+        function downloadCSV() {
+            const csvContent = generateCSV();
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute('href', url);
+            a.setAttribute('download', 'lista_numeri.csv');
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        // Gestione del click sul pulsante "Scarica CSV"
+        document.getElementById('download-button').addEventListener('click', downloadCSV);
     </script>
 
 </body>
