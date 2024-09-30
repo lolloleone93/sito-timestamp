@@ -1,7 +1,7 @@
 {
   "name": "App con Timestamp",
   "short_name": "Timestamp",
-  "start_url": "/index.html",
+  "start_url": "/sito-timestamp/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#007bff",
